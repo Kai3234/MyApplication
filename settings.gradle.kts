@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Tuan2"
 include(":app")
+include(":app:unitconverter")
