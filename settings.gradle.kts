@@ -23,3 +23,8 @@ rootProject.name = "Tuan2"
 include(":app")
 include(":app:unitconverter")
 include(":app:calculator")
+include(":app:expensify")
+include(":app:calculator_constraint")
+include(":app:calculator_recent")
+include(":app:note")
+include(":app:quiz")
