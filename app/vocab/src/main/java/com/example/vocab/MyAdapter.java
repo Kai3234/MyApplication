@@ -1,16 +1,16 @@
 package com.example.vocab;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
@@ -63,22 +63,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             textView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
-                    VocabFragment vocabFragment = new VocabFragment(data.get(position));
-
-                    FragmentManager fragmentManager = ((MainActivity) context).getSupportFragmentManager();
-
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                    fragmentTransaction.replace(R.id.fragment_container, vocabFragment);
-
-                    fragmentTransaction.commit();
+                    Intent intent = new Intent(context, VocabDetailActivity.class);
+                    intent.putExtra("vocab", data.get(position));
+                    context.startActivity(intent);
                 }
             });
         }
 
     }
 }
-class Vocab {
+class Vocab implements Serializable {
     String term;
     String def;
     String ipa;
