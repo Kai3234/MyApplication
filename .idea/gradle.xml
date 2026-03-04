@@ -18,6 +18,7 @@
             <option value="$PROJECT_DIR$/app/note" />
             <option value="$PROJECT_DIR$/app/quiz" />
             <option value="$PROJECT_DIR$/app/unitconverter" />
+            <option value="$PROJECT_DIR$/app/vocab" />
           </set>
         </option>
       </GradleProjectSettings>
