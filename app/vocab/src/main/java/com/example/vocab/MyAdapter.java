@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
@@ -39,12 +38,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyAdapter.ViewHolder holder, int position) {
-        VocabFragment vocabFragment = new VocabFragment(data.get(position));
-        FragmentManager fragmentManager = ((MainActivity) context).getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, vocabFragment);
-        fragmentTransaction.commit();
+        String item = data.get(position).term;
+        holder.textView.setText(item);
+
+
     }
+
 
 
     // Trả về số lượng mục trong danh sách
@@ -64,7 +63,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             textView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
-                    Toast.makeText(context, data.get(position).def, Toast.LENGTH_SHORT).show();
+                    VocabFragment vocabFragment = new VocabFragment(data.get(position));
+
+                    FragmentManager fragmentManager = ((MainActivity) context).getSupportFragmentManager();
+
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    fragmentTransaction.replace(R.id.fragment_container, vocabFragment);
+
+                    fragmentTransaction.commit();
                 }
             });
         }
