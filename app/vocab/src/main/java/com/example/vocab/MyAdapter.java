@@ -1,13 +1,16 @@
 package com.example.vocab;
 
 import android.content.Context;
-import android.content.Intent;
+import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.Serializable;
@@ -63,9 +66,53 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             textView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
-                    Intent intent = new Intent(context, VocabDetailActivity.class);
-                    intent.putExtra("vocab", data.get(position));
-                    context.startActivity(intent);
+                    if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+
+                        // Hiển thị màn hình mới sang phải / trái
+//                        Intent intent = new Intent(context, VocabDetailActivity.class);
+//                        intent.putExtra("vocabList", data);
+//                        intent.putExtra("position", position);
+//                        context.startActivity(intent);
+
+                        // Hiển thị Dialog
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+
+                        LayoutInflater inflater = LayoutInflater.from(context);
+
+                        View dialogView = inflater.inflate(R.layout.vocab_layout, null);
+
+                        TextView defTextView = dialogView.findViewById(R.id.defTextView);
+
+                        TextView ipaTextView = dialogView.findViewById(R.id.ipaTextView);
+
+                        defTextView.setText(data.get(position).def);
+
+                        ipaTextView.setText(data.get(position).ipa);
+
+
+                        builder.setView(dialogView);
+
+                        builder.setCancelable(false);
+
+                        builder.setPositiveButton("Đóng", (dialog, which) -> dialog.dismiss());
+
+                        builder.setTitle("Bạn đang xem nghĩa của từ " + data.get(position).term);
+
+
+                        AlertDialog alertDialog = builder.create();
+
+                        alertDialog.show();
+                    }else{
+                        VocabFragment vocabFragment = new VocabFragment(data.get(position));
+                        FragmentManager fragmentManager = ((MainActivity) context).getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.fragment_container, vocabFragment);
+                        fragmentTransaction.commit();
+                    }
+
+
+
                 }
             });
         }

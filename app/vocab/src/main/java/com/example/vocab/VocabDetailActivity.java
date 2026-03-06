@@ -4,12 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager2.widget.ViewPager2;
+
+import java.util.ArrayList;
 
 public class VocabDetailActivity extends AppCompatActivity {
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,14 +16,16 @@ public class VocabDetailActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        Vocab vocab = (Vocab) intent.getSerializableExtra("vocab");
+        ArrayList<Vocab> vocabList = (ArrayList<Vocab>) intent.getSerializableExtra("vocabList");
+        int position = intent.getIntExtra("position", 0); // Lấy vị trí từ Intent, mặc định là 0 nếu không có giá trị được truyền
 
 
-        VocabFragment vocabFragment = new VocabFragment(vocab);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, vocabFragment);
-        fragmentTransaction.commit();
+        ViewPager2 viewPager = findViewById(R.id.viewPager);
+        VocabPagerAdapter adapter = new VocabPagerAdapter(this, vocabList);
+        viewPager.setAdapter(adapter);
+        // Hiển thị bắt đầu ở vị trí position
+        viewPager.setCurrentItem(position);
     }
 }
+
 
