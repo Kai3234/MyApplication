@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-
     <!-- RecyclerView để hiển thị danh sách -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -13,7 +12,6 @@
         android:layout_weight="1"
         android:background="#eeeeee"
         />
-
 
     <!-- Fragment container -->
     <FrameLayout

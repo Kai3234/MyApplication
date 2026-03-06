@@ -67,12 +67,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-
-                        // Hiển thị màn hình mới sang phải / trái
 //                        Intent intent = new Intent(context, VocabDetailActivity.class);
 //                        intent.putExtra("vocabList", data);
 //                        intent.putExtra("position", position);
 //                        context.startActivity(intent);
+
 
                         // Hiển thị Dialog
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -97,7 +96,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
                         builder.setPositiveButton("Đóng", (dialog, which) -> dialog.dismiss());
 
-                        builder.setTitle("Bạn đang xem nghĩa của từ " + data.get(position).term);
+                        builder.setTitle(data.get(position).term);
 
 
                         AlertDialog alertDialog = builder.create();
